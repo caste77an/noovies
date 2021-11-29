@@ -14,6 +14,10 @@ const Title = styled.Text`
   margin-bottom: 5px;
 `;
 
+export const HListSeparator = styled.View`
+  width: 20px;
+`;
+
 interface VMediaProps {
   posterPath: string;
   originalTitle: string;
