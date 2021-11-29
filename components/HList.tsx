@@ -1,5 +1,7 @@
 import React from "react";
+import { FlatList } from "react-native";
 import styled from "styled-components/native";
+import VMedia, { HListSeparator } from "./VMedia";
 
 const ListContainer = styled.View`
   margin-bottom: 40px;
@@ -15,12 +17,27 @@ const ListTitle = styled.Text`
 
 interface HListProps {
   title: string;
+  data: any[];
 }
 
-const HList: React.FC<HListProps> = ({ title, children }) => (
+const HList: React.FC<HListProps> = ({ title, data }) => (
   <ListContainer>
     <ListTitle>{title}</ListTitle>
-    {children}
+    <FlatList
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      ItemSeparatorComponent={HListSeparator}
+      contentContainerStyle={{ paddingHorizontal: 30 }}
+      data={data}
+      keyExtractor={(item) => item.id + ""}
+      renderItem={({ item }) => (
+        <VMedia
+          posterPath={item.poster_path}
+          originalTitle={item.original_itle ?? item.original_name}
+          voteAverage={item.vote_average}
+        />
+      )}
+    />
   </ListContainer>
 );
 
