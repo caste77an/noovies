@@ -1,7 +1,9 @@
+import { QueryFunction } from "react-query";
+
 const API_KEY = "fd3e58ab6fece92b8142b427a386d7b1";
 const BASE_URL = "https://api.themoviedb.org/3";
 
-export interface Moive {
+export interface Movie {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];
@@ -18,6 +20,23 @@ export interface Moive {
   vote_count: number;
 }
 
+export interface TV {
+  name: string;
+  original_name: string;
+  origin_country: string[];
+  vote_count: number;
+  backdrop_path: string | null;
+  vote_average: number;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  overview: string;
+  poster_path: string | null;
+  first_air_date: string;
+  popularity: number;
+  media_type: string;
+}
+
 interface BaseResponse {
   page: number;
   total_results: number;
@@ -25,7 +44,15 @@ interface BaseResponse {
 }
 
 export interface MovieResponse extends BaseResponse {
-  results: Moive[];
+  results: Movie[];
+}
+
+export interface TVResponse extends BaseResponse {
+  results: TV[];
+}
+
+interface Fetchers<T> {
+  [key: string]: QueryFunction<T>;
 }
 
 export const moviesApi = {
